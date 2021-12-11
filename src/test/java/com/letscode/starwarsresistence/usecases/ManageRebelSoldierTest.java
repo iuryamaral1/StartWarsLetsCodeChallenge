@@ -58,17 +58,6 @@ public class ManageRebelSoldierTest {
     }
 
     @Test
-    public void throw_error_when_trying_create_soldier_with_null_request() {
-        RebelSoldier.RebelSoldierRequest request = null;
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            useCase.createSoldier(request);
-        });
-
-        Mockito.verify(gateway, Mockito.never()).createSoldier(Mockito.any());
-    }
-
-    @Test
     public void throw_error_when_inventory_request_is_null() {
         RebelSoldier.RebelSoldierRequest request = new RebelSoldier.RebelSoldierRequest();
 

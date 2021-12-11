@@ -23,7 +23,9 @@ public class Headquarters {
     @Embedded
     private Location location;
 
-    public Headquarters() { }
+    public Headquarters() {
+        this.id = UUID.randomUUID();
+    }
 
     public UUID getId() {
         return id;
@@ -60,5 +62,34 @@ public class Headquarters {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public static class HeadquartersRequest {
+
+        private String galaxyName;
+        private Location location;
+
+        public String getGalaxyName() {
+            return galaxyName;
+        }
+
+        public void setGalaxyName(String galaxyName) {
+            this.galaxyName = galaxyName;
+        }
+
+        public Location getLocation() {
+            return location;
+        }
+
+        public void setLocation(Location location) {
+            this.location = location;
+        }
+
+        public Headquarters toHeadquarters() {
+            Headquarters headquarters = new Headquarters();
+            this.setGalaxyName(this.galaxyName);
+            this.setLocation(this.location);
+            return headquarters;
+        }
     }
 }

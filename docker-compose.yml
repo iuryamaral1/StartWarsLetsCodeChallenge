@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  starwars-db:
+    image: 'postgres:13.1-alpine'
+    container_name: starwars-db
+    networks:
+      - starwars_network
+    environment:
+      - POSTGRES_USER=${STARWARS_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${STARWARS_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${STARWARS_POSTGRES_DB}
+
+  starwars-app:
+    build: .
+    image: starwars-app
+    networks:
+      - starwars_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - starwars-db
+    environment:
+      - SPRING_DATASOURCE_URL=${STARWARS_APP_SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${STARWARS_APP_SPRING_DATASOURCE_USER}
+      - SPRING_DATASOURCE_PASSWORD=${STARWARS_APP_SPRING_DATASOURCE_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+networks:
+  starwars_network:
+    driver: bridge

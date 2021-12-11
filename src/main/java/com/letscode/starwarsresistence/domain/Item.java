@@ -1,10 +1,14 @@
 package com.letscode.starwarsresistence.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,8 +29,14 @@ public class Item {
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inventory_id")
     private Inventory inventory;
+
+    public Item() {
+        this.id = UUID.randomUUID();
+    }
 
     public UUID getId() {
         return id;

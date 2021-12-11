@@ -1,4 +1,4 @@
-package com.letscode.starwarsresistence.gateways;
+package com.letscode.starwarsresistence.gateways.postgres;
 
 import com.letscode.starwarsresistence.domain.Inventory;
 import com.letscode.starwarsresistence.repositories.InventoryRepository;

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS rebel (
     name varchar(100) not null,
     nick_name varchar(100) not null,
     birth_date date not null,
+    age int,
     gender varchar(100) not null,
     headquarters_id uuid,
     active boolean default true,

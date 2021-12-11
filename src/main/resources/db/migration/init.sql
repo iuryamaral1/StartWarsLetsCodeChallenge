@@ -11,11 +11,12 @@ CREATE TABLE IF NOT EXISTS headquarters (
     primary key (id)
 );
 
-CREATE TABLE IF NOT EXISTS rebel_soldier (
+CREATE TABLE IF NOT EXISTS rebel (
     id uuid not null,
     name varchar(100) not null,
     nick_name varchar(100) not null,
     birth_date date not null,
+    age int,
     gender varchar(100) not null,
     headquarters_id uuid,
     active boolean default true,
@@ -37,6 +38,18 @@ CREATE TABLE IF NOT EXISTS inventory (
 
     primary key(id),
     constraint inventory_rebel_soldier_fk
-        foreign key (rebel_soldier_id)
-            references rebel_soldier (id)
-)
+        foreign key (rebel_id)
+            references rebel (id)
+);
+
+CREATE TABLE IF NOT EXISTS item (
+    id uuid not null,
+    type varchar(100) not null,
+    amount int not null,
+    inventory_id uuid not null,
+
+    primary key (id),
+    constraint item_inventory_fk
+        foreign key (inventory_id)
+            references inventory (id)
+);
