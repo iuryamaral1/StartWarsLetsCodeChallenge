@@ -20,7 +20,7 @@ public class RebelSoldierPostgresGateway implements RebelSoldierGateway {
     }
 
     @Override
-    public RebelSoldier createSoldier(RebelSoldier rebelSoldier) {
+    public RebelSoldier saveSoldier(RebelSoldier rebelSoldier) {
         return repository.save(rebelSoldier);
     }
 

@@ -49,12 +49,12 @@ public class ManageRebelSoldierTest {
         expectedRebelSoldier.setHeadquarters(pleiades);
         expectedRebelSoldier.setBirthDate(Date.from(LocalDate.now().minusYears(25).atStartOfDay().toInstant(ZoneOffset.UTC)));
 
-        Mockito.when(gateway.createSoldier(Mockito.any())).thenReturn(expectedRebelSoldier);
+        Mockito.when(gateway.saveSoldier(Mockito.any())).thenReturn(expectedRebelSoldier);
 
-        RebelSoldier result = useCase.createSoldier(request);
+        RebelSoldier.RebelSoldierResponse result = useCase.createSoldier(request);
 
-        Mockito.verify(gateway, Mockito.times(1)).createSoldier(Mockito.any());
-        Assertions.assertEquals(result, expectedRebelSoldier);
+        Mockito.verify(gateway, Mockito.times(1)).saveSoldier(Mockito.any());
+        Assertions.assertEquals(result, new RebelSoldier.RebelSoldierResponse(expectedRebelSoldier));
     }
 
     @Test
@@ -65,6 +65,6 @@ public class ManageRebelSoldierTest {
             useCase.createSoldier(request);
         });
 
-        Mockito.verify(gateway, Mockito.never()).createSoldier(Mockito.any());
+        Mockito.verify(gateway, Mockito.never()).saveSoldier(Mockito.any());
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface RebelSoldierGateway {
 
-    public RebelSoldier createSoldier(RebelSoldier rebelSoldier);
+    public RebelSoldier saveSoldier(RebelSoldier rebelSoldier);
     public List<RebelSoldier> findAll();
     public Optional<RebelSoldier> findById(UUID id);
 }

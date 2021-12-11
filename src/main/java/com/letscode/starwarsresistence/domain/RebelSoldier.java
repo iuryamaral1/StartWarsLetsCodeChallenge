@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -211,12 +212,23 @@ public class RebelSoldier {
 
         public RebelSoldierResponse(RebelSoldier rebelSoldier) {
             this.setCompleteName(rebelSoldier.getName());
-            this.setAge(Period.between(((java.sql.Date) rebelSoldier.getBirthDate()).toLocalDate(), LocalDate.now()).getYears());
+            this.setAge(calculateAge(rebelSoldier));
             this.setInventory(rebelSoldier.getInventory());
             this.setSoldierGender(rebelSoldier.getGender().name());
             this.setLocation(rebelSoldier.getLocation());
             if (rebelSoldier.getHeadquarters() != null) this.setHeadquartersName(rebelSoldier.getHeadquarters().getGalaxyName());
             this.setNick(rebelSoldier.getNickName());
+        }
+
+        private Integer calculateAge(RebelSoldier rebelSoldier) {
+            LocalDate birthLocalDate = null;
+            if (rebelSoldier.getBirthDate() instanceof java.sql.Date) {
+                birthLocalDate = ((java.sql.Date) rebelSoldier.getBirthDate()).toLocalDate();
+            } else {
+                birthLocalDate = rebelSoldier.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            }
+
+            return Period.between(birthLocalDate, LocalDate.now()).getYears();
         }
 
         public String getCompleteName() {

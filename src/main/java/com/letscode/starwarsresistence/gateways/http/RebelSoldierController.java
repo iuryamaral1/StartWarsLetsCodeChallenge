@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,15 +30,19 @@ public class RebelSoldierController {
 
     @GetMapping
     public ResponseEntity<List<RebelSoldier.RebelSoldierResponse>> findAllRebel(@NotNull final Pageable pageable) {
-        return ResponseEntity.ok(
-                manageRebelSoldier.findAllRebelSoldiers().stream()
-                        .map(RebelSoldier.RebelSoldierResponse::new)
-                        .collect(Collectors.toList())
-        );
+        return ResponseEntity.ok(manageRebelSoldier.findAllRebelSoldiers());
     }
 
     @PostMapping
     public ResponseEntity<RebelSoldier.RebelSoldierResponse> create(@RequestBody RebelSoldier.RebelSoldierRequest request) throws ApplicationBusinessException {
-        return ResponseEntity.ok(new RebelSoldier.RebelSoldierResponse(this.manageRebelSoldier.createSoldier(request)));
+        return ResponseEntity.ok(this.manageRebelSoldier.createSoldier(request));
+    }
+
+    @PutMapping("/{rebelId}/report-location")
+    public ResponseEntity<RebelSoldier.RebelSoldierResponse> reportLastLocation(
+            @PathVariable("rebelId") String rebelId,
+            @RequestBody Location.LocationRequest request
+    ) throws ApplicationBusinessException {
+        return ResponseEntity.ok(this.manageRebelSoldier.updateLastLocation(request, UUID.fromString(rebelId)));
     }
 }
