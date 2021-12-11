@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +31,7 @@ public class ManageRebelSoldierTest {
     public void should_create_soldier_successfully() throws ApplicationBusinessException {
         RebelSoldier.RebelSoldierRequest request = new RebelSoldier.RebelSoldierRequest();
         request.setGender(RebelSoldier.RebelSoldierGender.ALIEN);
+        request.setBirthDate(Date.from(LocalDate.now().minusYears(25).atStartOfDay().toInstant(ZoneOffset.UTC)));
         Headquarters pleiades = new Headquarters();
         pleiades.setGalaxyName("Pleiades");
         Location pleiadesLocation = new Location();
@@ -43,6 +47,7 @@ public class ManageRebelSoldierTest {
         expectedRebelSoldier.setName("Any Name");
         expectedRebelSoldier.setInventory(inventory);
         expectedRebelSoldier.setHeadquarters(pleiades);
+        expectedRebelSoldier.setBirthDate(Date.from(LocalDate.now().minusYears(25).atStartOfDay().toInstant(ZoneOffset.UTC)));
 
         Mockito.when(gateway.createSoldier(Mockito.any())).thenReturn(expectedRebelSoldier);
 

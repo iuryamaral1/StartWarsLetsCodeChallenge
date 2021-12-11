@@ -34,6 +34,7 @@ public class Inventory {
     private Map<ItemType, Integer> items = new HashMap();
 
     public Inventory() {
+        this.id = UUID.randomUUID();
         this.isNegotiable = true;
         allOf(ItemType.class).forEach(itemType -> this.items.put(itemType, 0));
     }
@@ -62,6 +63,14 @@ public class Inventory {
         isNegotiable = negotiable;
     }
 
+    public Map<ItemType, Integer> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<ItemType, Integer> items) {
+        this.items = items;
+    }
+
     public void addItems(ItemType itemType, Integer amount) {
         Integer amountOfThisItem = this.items.getOrDefault(itemType, 0);
         this.items.put(itemType, (amountOfThisItem + amount));
@@ -77,6 +86,25 @@ public class Inventory {
 
     public Integer totalPoints() {
         return this.items.values().stream().reduce(0, Integer::sum);
+    }
+
+    public static class InventoryRequest {
+
+        private Map<ItemType, Integer> items;
+
+        public Map<ItemType, Integer> getItems() {
+            return items;
+        }
+
+        public void setItems(Map<ItemType, Integer> items) {
+            this.items = items;
+        }
+
+        public Inventory toInventory() {
+            Inventory inventory = new Inventory();
+            inventory.setItems(this.items);
+            return inventory;
+        }
     }
 
     public enum ItemType {

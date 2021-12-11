@@ -1,5 +1,6 @@
 package com.letscode.starwarsresistence.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -11,7 +12,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,6 +35,14 @@ public class RebelSoldier {
     @NotNull
     @Column(name = "nick_name", nullable = false, unique = true, length = 100)
     private String nickName;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @Column(name = "birth_date", nullable = false)
+    private Date birthDate;
+
+    @Transient
+    private Integer age;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -56,7 +69,7 @@ public class RebelSoldier {
     @Column(name = "service_end_at")
     private Date serviceEndAt;
 
-    @OneToOne(mappedBy = "rebelSoldier")
+    @OneToOne(mappedBy = "rebelSoldier", cascade = CascadeType.ALL)
     private Inventory inventory;
 
     @Embedded
@@ -92,6 +105,18 @@ public class RebelSoldier {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Integer getAge() {
+        return (int) ChronoUnit.YEARS.between(LocalDate.now(), this.birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
     public RebelSoldierGender getGender() {
@@ -187,9 +212,11 @@ public class RebelSoldier {
         private String nickName;
 
         @NotNull
-        private RebelSoldierGender gender;
+        private Date birthDate;
 
         @NotNull
+        private RebelSoldierGender gender;
+
         private Headquarters headquarters;
 
         @NotNull
@@ -209,6 +236,14 @@ public class RebelSoldier {
 
         public void setNickName(String nickName) {
             this.nickName = nickName;
+        }
+
+        public Date getBirthDate() {
+            return birthDate;
+        }
+
+        public void setBirthDate(Date birthDate) {
+            this.birthDate = birthDate;
         }
 
         public RebelSoldierGender getGender() {
