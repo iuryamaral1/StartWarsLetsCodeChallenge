@@ -15,6 +15,8 @@
 	<description>Rest API Project for Lets Code Challenge</description>
 	<properties>
 		<java.version>11</java.version>
+		<testcontainers.version>1.15.1</testcontainers.version>
+		<flyway.version>7.15.0</flyway.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -48,7 +50,28 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
     </dependencies>
 
 	<build>

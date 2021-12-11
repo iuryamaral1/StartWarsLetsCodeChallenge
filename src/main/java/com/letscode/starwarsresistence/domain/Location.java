@@ -9,25 +9,32 @@ public class Location {
 
     @NotNull
     @Column(name = "latitude", nullable = false)
-    private Double latitude;
+    private Double lat;
 
     @NotNull
     @Column(name = "longitude", nullable = false)
-    private Double longitude;
+    private Double lng;
 
-    public Double getLatitude() {
-        return latitude;
+    public Location() { }
+
+    public Location(Double latitude, Double longitude) {
+        this.lat = latitude;
+        this.lng = longitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public Double getLat() {
+        return lat;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

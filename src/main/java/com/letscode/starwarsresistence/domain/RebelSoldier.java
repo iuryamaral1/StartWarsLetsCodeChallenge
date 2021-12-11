@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "rebel_soldier")
+@Table(name = "rebel")
 public class RebelSoldier {
 
     @Id

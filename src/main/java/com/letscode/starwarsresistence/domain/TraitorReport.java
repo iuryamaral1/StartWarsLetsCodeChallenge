@@ -5,9 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
-@Entity
 @Table(name = "traitor_report", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"rebel_soldier_id", "traitor_id"})
 })
