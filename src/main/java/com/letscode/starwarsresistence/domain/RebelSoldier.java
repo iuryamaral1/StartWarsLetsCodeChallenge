@@ -1,6 +1,7 @@
 package com.letscode.starwarsresistence.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -55,7 +56,14 @@ public class RebelSoldier {
     @Column(name = "service_end_at")
     private Date serviceEndAt;
 
+    @OneToOne(mappedBy = "rebelSoldier")
+    private Inventory inventory;
+
+    @Embedded
+    private Location location;
+
     public RebelSoldier() {
+        this.id = UUID.randomUUID();
         this.active = true;
         this.gender = RebelSoldierGender.UNIDENTIFIED;
         this.isTraitor = false;
@@ -134,6 +142,22 @@ public class RebelSoldier {
         this.serviceEndAt = serviceEndAt;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -152,5 +176,73 @@ public class RebelSoldier {
         ROBOT,
         ALIEN,
         UNIDENTIFIED
+    }
+
+    public static class RebelSoldierRequest {
+
+        @NotNull
+        private String name;
+
+        @NotNull
+        private String nickName;
+
+        @NotNull
+        private RebelSoldierGender gender;
+
+        @NotNull
+        private Headquarters headquarters;
+
+        @NotNull
+        private Inventory inventory;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
+
+        public RebelSoldierGender getGender() {
+            return gender;
+        }
+
+        public void setGender(RebelSoldierGender gender) {
+            this.gender = gender;
+        }
+
+        public Headquarters getHeadquarters() {
+            return headquarters;
+        }
+
+        public void setHeadquarters(Headquarters headquarters) {
+            this.headquarters = headquarters;
+        }
+
+        public Inventory getInventory() {
+            return inventory;
+        }
+
+        public void setInventory(Inventory inventory) {
+            this.inventory = inventory;
+        }
+
+        public RebelSoldier toRebelSoldier() {
+            RebelSoldier rebelSoldier = new RebelSoldier();
+            rebelSoldier.setName(this.name);
+            rebelSoldier.setNickName(this.nickName);
+            rebelSoldier.setGender(this.gender);
+            rebelSoldier.setHeadquarters(this.headquarters);
+            rebelSoldier.setInventory(this.inventory);
+            return rebelSoldier;
+        }
     }
 }
