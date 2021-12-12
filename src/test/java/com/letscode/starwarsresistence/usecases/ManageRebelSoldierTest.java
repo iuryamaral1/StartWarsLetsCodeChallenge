@@ -53,8 +53,13 @@ public class ManageRebelSoldierTest {
 
         RebelSoldier.RebelSoldierResponse result = useCase.createSoldier(request);
 
+        var expectedResult = new RebelSoldier.RebelSoldierResponse(expectedRebelSoldier);
+
         Mockito.verify(gateway, Mockito.times(1)).saveSoldier(Mockito.any());
-        Assertions.assertEquals(result, new RebelSoldier.RebelSoldierResponse(expectedRebelSoldier));
+        Assertions.assertEquals(expectedResult.getCompleteName(), result.getCompleteName());
+        Assertions.assertEquals(expectedResult.getSoldierGender(), result.getSoldierGender());
+        Assertions.assertEquals(expectedResult.getNick(), result.getNick());
+        Assertions.assertEquals(expectedResult.getAge(), result.getAge());
     }
 
     @Test

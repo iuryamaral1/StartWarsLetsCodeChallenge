@@ -1,23 +1,37 @@
 package com.letscode.starwarsresistence.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Entity
 @Table(name = "traitor_report", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"rebel_soldier_id", "traitor_id"})
+        @UniqueConstraint(columnNames = {"rebel_soldier_id", "traitor_id"})
 })
 public class TraitorReport {
 
+    @Id
+    private UUID id;
+
     @NotNull
+    @ManyToOne
     @JoinColumn(name = "rebel_soldier_id")
     private RebelSoldier rebelReporter;
 
     @NotNull
+    @ManyToOne
     @JoinColumn(name = "traitor_id")
     private RebelSoldier traitor;
+
+    public TraitorReport() {
+        this.id = UUID.randomUUID();
+    }
 
     public RebelSoldier getRebelReporter() {
         return rebelReporter;

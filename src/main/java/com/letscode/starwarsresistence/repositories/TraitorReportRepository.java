@@ -10,9 +10,9 @@ import java.util.UUID;
 @Repository
 public interface TraitorReportRepository extends CrudRepository<TraitorReport, UUID> {
 
-    @Query("SELECT count(report) FROM TraitorReport tr WHERE tr.traitor.id = ?1")
+    @Query("SELECT count(tr) FROM TraitorReport tr WHERE tr.traitor.id = ?1")
     public Integer findAmountOfReportsForRebel(UUID traitorId);
 
-    @Query("SELECT report FROM TraitorReport tr WHERE tr.rebelReporter.id = ?1 AND tr.traitor.id = ?2")
+    @Query("SELECT tr FROM TraitorReport tr WHERE tr.rebelReporter.id = ?1 AND tr.traitor.id = ?2")
     public Iterable<TraitorReport> findByReporterIdAndTraitorId(UUID reporterId, UUID traitorId);
 }

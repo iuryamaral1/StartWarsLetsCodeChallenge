@@ -2,6 +2,7 @@ package com.letscode.starwarsresistence.gateways.http;
 
 import com.letscode.starwarsresistence.domain.Location;
 import com.letscode.starwarsresistence.domain.RebelSoldier;
+import com.letscode.starwarsresistence.domain.TraitorReport;
 import com.letscode.starwarsresistence.domain.exceptions.ApplicationBusinessException;
 import com.letscode.starwarsresistence.usecases.ManageRebelSoldier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/rebels")
@@ -44,10 +44,5 @@ public class RebelSoldierController {
             @RequestBody Location.LocationRequest request
     ) throws ApplicationBusinessException {
         return ResponseEntity.ok(this.manageRebelSoldier.updateLastLocation(request, UUID.fromString(rebelId)));
-    }
-
-    @PostMapping("/{reporterId}/report-traitor")
-    public void reportTraitor() {
-
     }
 }

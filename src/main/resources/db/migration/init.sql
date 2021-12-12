@@ -53,3 +53,18 @@ CREATE TABLE IF NOT EXISTS item (
         foreign key (inventory_id)
             references inventory (id)
 );
+
+CREATE TABLE IF NOT EXISTS traitor_report(
+    id uuid not null,
+    rebel_soldier_id uuid not null,
+    traitor_id uuid not null,
+
+    primary key(id),
+    constraint traitor_report_rebel_soldier_fk
+        foreign key (rebel_soldier_id)
+            references rebel(id)
+
+    constraint traitor_report_rebel_soldier_traitor_fk
+        foreign key (traitor_id)
+            references rebel(id)
+);

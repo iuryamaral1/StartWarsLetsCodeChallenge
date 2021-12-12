@@ -72,9 +72,6 @@ public class RebelSoldier {
     @OneToOne(mappedBy = "rebelSoldier", cascade = CascadeType.ALL)
     private Inventory inventory;
 
-    @OneToMany(mappedBy = "traitor")
-    private List<TraitorReport> notificationsOfBeingTraitor;
-
     @Embedded
     private Location location;
 
@@ -184,14 +181,6 @@ public class RebelSoldier {
 
     public boolean hasItems() {
         return (this.getInventory() != null && this.getInventory().getItems() != null && !this.getInventory().getItems().isEmpty());
-    }
-
-    public List<TraitorReport> getNotificationsOfBeingTraitor() {
-        return notificationsOfBeingTraitor;
-    }
-
-    public void setNotificationsOfBeingTraitor(List<TraitorReport> notificationsOfBeingTraitor) {
-        this.notificationsOfBeingTraitor = notificationsOfBeingTraitor;
     }
 
     @Override
