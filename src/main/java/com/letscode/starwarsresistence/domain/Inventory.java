@@ -29,14 +29,14 @@ public class Inventory {
 
     @NotNull
     @Column(name = "is_negotiable", nullable = false, columnDefinition = "boolean default true")
-    private Boolean isNegotiable;
+    private boolean negotiable;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private Set<Item> items;
 
     public Inventory() {
         this.id = UUID.randomUUID();
-        this.isNegotiable = true;
+        this.negotiable = true;
     }
 
     public UUID getId() {
@@ -55,12 +55,12 @@ public class Inventory {
         this.rebelSoldier = rebelSoldier;
     }
 
-    public Boolean getNegotiable() {
-        return isNegotiable;
+    public boolean isNegotiable() {
+        return negotiable;
     }
 
-    public void setNegotiable(Boolean negotiable) {
-        isNegotiable = negotiable;
+    public void setNegotiable(boolean negotiable) {
+        this.negotiable = negotiable;
     }
 
     public Set<Item> getItems() {

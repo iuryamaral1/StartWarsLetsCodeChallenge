@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -52,11 +54,11 @@ public class RebelSoldier {
 
     @NotNull
     @Column(name = "active", columnDefinition = "boolean default true", nullable = false)
-    private Boolean active;
+    private boolean active;
 
     @NotNull
     @Column(name = "is_traitor", columnDefinition = "boolean default false", nullable = false)
-    private Boolean isTraitor;
+    private boolean traitor;
 
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -70,6 +72,9 @@ public class RebelSoldier {
     @OneToOne(mappedBy = "rebelSoldier", cascade = CascadeType.ALL)
     private Inventory inventory;
 
+    @OneToMany(mappedBy = "traitor")
+    private List<TraitorReport> notificationsOfBeingTraitor;
+
     @Embedded
     private Location location;
 
@@ -77,7 +82,7 @@ public class RebelSoldier {
         this.id = UUID.randomUUID();
         this.active = true;
         this.gender = RebelSoldierGender.UNIDENTIFIED;
-        this.isTraitor = false;
+        this.traitor = false;
         this.serviceStartedAt = new Date();
     }
 
@@ -129,20 +134,20 @@ public class RebelSoldier {
         this.headquarters = headquarters;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Boolean getTraitor() {
-        return isTraitor;
+    public boolean isTraitor() {
+        return traitor;
     }
 
-    public void setTraitor(Boolean traitor) {
-        isTraitor = traitor;
+    public void setTraitor(boolean traitor) {
+        this.traitor = traitor;
     }
 
     public Date getServiceStartedAt() {
@@ -179,6 +184,14 @@ public class RebelSoldier {
 
     public boolean hasItems() {
         return (this.getInventory() != null && this.getInventory().getItems() != null && !this.getInventory().getItems().isEmpty());
+    }
+
+    public List<TraitorReport> getNotificationsOfBeingTraitor() {
+        return notificationsOfBeingTraitor;
+    }
+
+    public void setNotificationsOfBeingTraitor(List<TraitorReport> notificationsOfBeingTraitor) {
+        this.notificationsOfBeingTraitor = notificationsOfBeingTraitor;
     }
 
     @Override

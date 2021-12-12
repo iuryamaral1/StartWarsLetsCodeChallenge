@@ -43,4 +43,10 @@ public class ManageRebelSoldier {
         rebel.setLocation(new Location(request.getLatitude(), request.getLongitude()));
         return new RebelSoldier.RebelSoldierResponse(this.gateway.saveSoldier(rebel));
     }
+
+    public RebelSoldier markSoldierAsTraitor(RebelSoldier rebelSoldier) {
+        rebelSoldier.setTraitor(true);
+        rebelSoldier.getInventory().setNegotiable(false);
+        return this.gateway.saveSoldier(rebelSoldier);
+    }
 }

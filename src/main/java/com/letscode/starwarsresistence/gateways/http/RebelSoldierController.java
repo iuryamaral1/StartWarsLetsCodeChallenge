@@ -45,4 +45,9 @@ public class RebelSoldierController {
     ) throws ApplicationBusinessException {
         return ResponseEntity.ok(this.manageRebelSoldier.updateLastLocation(request, UUID.fromString(rebelId)));
     }
+
+    @PostMapping("/{reporterId}/report-traitor")
+    public void reportTraitor() {
+
+    }
 }
