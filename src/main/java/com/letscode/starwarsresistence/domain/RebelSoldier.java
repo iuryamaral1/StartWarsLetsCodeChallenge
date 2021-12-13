@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,9 +18,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "rebel")
@@ -181,6 +180,40 @@ public class RebelSoldier {
 
     public boolean hasItems() {
         return (this.getInventory() != null && this.getInventory().getItems() != null && !this.getInventory().getItems().isEmpty());
+    }
+
+    public void removeItem(Item.ItemType type, Integer amount) {
+        this.getInventory().setItems(
+            this.getInventory().getItems().stream().map(item -> {
+                if (item.getType().name().equals(type.name())) {
+                    item.setAmount(item.getAmount() - amount);
+                }
+                return item;
+            }).collect(Collectors.toSet())
+        );
+    }
+
+    public boolean containsItem(Item.ItemType type) {
+        return this.getInventory().getItems().stream().anyMatch(item -> type.name().equals(item.getType().name()));
+    }
+
+    public void addItem(Item.ItemType type, Integer amount) {
+        if (!containsItem(type)) {
+            Item itemToBeAdded = new Item();
+            itemToBeAdded.setType(type);
+            itemToBeAdded.setAmount(amount);
+            this.getInventory().getItems().add(itemToBeAdded);
+        } else {
+            this.getInventory().setItems(
+                    this.getInventory().getItems().stream().map(item -> {
+                        if (item.getType().name().equals(type.name())) {
+                            item.setAmount(item.getAmount() + amount);
+                            return item;
+                        }
+                        return item;
+                    }).collect(Collectors.toSet())
+            );
+        }
     }
 
     @Override

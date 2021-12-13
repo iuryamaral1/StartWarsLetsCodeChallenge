@@ -49,4 +49,10 @@ public class ManageRebelSoldier {
         rebelSoldier.getInventory().setNegotiable(false);
         return this.gateway.saveSoldier(rebelSoldier);
     }
+
+    public RebelSoldier updateSoldierItems(RebelSoldier soldierWithNewItems) {
+        RebelSoldier soldier = this.gateway.findById(soldierWithNewItems.getId()).get();
+        soldier.getInventory().setItems(soldierWithNewItems.getInventory().getItems());
+        return this.gateway.saveSoldier(soldier);
+    }
 }
