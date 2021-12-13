@@ -13,6 +13,6 @@ public interface BusinessConfigurationRepository extends CrudRepository<Business
 
     public BusinessConfiguration findByDescription(String description);
 
-    @Query("SELECT bc FROM BusinessConfiguration WHERE bc.description IN :configurations")
+    @Query("SELECT bc FROM BusinessConfiguration bc WHERE bc.description IN :configurations")
     public Iterable<BusinessConfiguration> loadItemValues(List<String> configurations);
 }

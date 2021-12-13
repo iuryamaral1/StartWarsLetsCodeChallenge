@@ -6,7 +6,6 @@ import com.letscode.starwarsresistence.domain.RebelSoldier;
 import com.letscode.starwarsresistence.domain.TraitorReport;
 import com.letscode.starwarsresistence.domain.exceptions.ApplicationBusinessException;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
