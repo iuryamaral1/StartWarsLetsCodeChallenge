@@ -24,7 +24,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(value = ApplicationBusinessException.class)
     public ErrorMessage handleApplicationBusinessErrors(ApplicationBusinessException appBusinessException) {
-        ErrorMessage errorMessage = new ErrorMessage(appBusinessException.getCause().getLocalizedMessage(), new Date());
+        ErrorMessage errorMessage = new ErrorMessage(appBusinessException.getMessage(), new Date());
         return errorMessage;
     }
 

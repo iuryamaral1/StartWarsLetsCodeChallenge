@@ -35,8 +35,8 @@ public class ManageRebelSoldierTest {
         Headquarters pleiades = new Headquarters();
         pleiades.setGalaxyName("Pleiades");
         Location pleiadesLocation = new Location();
-        pleiadesLocation.setLat(-8.234298734);
-        pleiadesLocation.setLng(-34.879687634);
+        pleiadesLocation.setLat("-8.234298734");
+        pleiadesLocation.setLng("-34.879687634");
         pleiades.setLocation(pleiadesLocation);
         request.setHeadquarters(pleiades);
         Inventory inventory = new Inventory();

@@ -32,7 +32,7 @@ public class RebelSoldierPostgresGatewayTest extends IntegrationTest {
         var id = UUID.randomUUID();
         RebelSoldier rebelSoldier = new RebelSoldier();
         rebelSoldier.setBirthDate(Date.from(LocalDate.now().minusYears(15).atStartOfDay().toInstant(ZoneOffset.UTC)));
-        rebelSoldier.setLocation(new Location(-8.765765, -34.989876));
+        rebelSoldier.setLocation(new Location("-8.765765", "-34.989876"));
         rebelSoldier.setName("Any name");
         rebelSoldier.setNickName("AnyNickName");
         rebelSoldier.setGender(RebelSoldier.RebelSoldierGender.HUMAN);
@@ -48,7 +48,7 @@ public class RebelSoldierPostgresGatewayTest extends IntegrationTest {
         RebelSoldier expectedSoldier = new RebelSoldier();
         expectedSoldier.setGender(RebelSoldier.RebelSoldierGender.HUMAN);
         expectedSoldier.setBirthDate(Date.from(LocalDate.now().minusYears(15).atStartOfDay().toInstant(ZoneOffset.UTC)));
-        expectedSoldier.setLocation(new Location(-8.765765, -34.989876));
+        expectedSoldier.setLocation(new Location("-8.765765", "-34.989876"));
         expectedSoldier.setName("Any Name");
         expectedSoldier.setNickName("AnyNickName");
         expectedSoldier.setId(id);

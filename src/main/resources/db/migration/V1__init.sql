@@ -2,11 +2,20 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 SET search_path TO public;
 
+CREATE TABLE IF NOT EXISTS business_configuration (
+    id uuid not null default uuid_generate_v4(),
+    description varchar(100) not null,
+    value int not null,
+
+    primary key (id),
+    unique(description)
+);
+
 CREATE TABLE IF NOT EXISTS headquarters (
     id uuid not null,
     galaxy_name varchar(50) not null,
-    latitude double not null,
-    longitude double not null,
+    latitude varchar(100) not null,
+    longitude varchar(100) not null,
 
     primary key (id)
 );
@@ -38,7 +47,7 @@ CREATE TABLE IF NOT EXISTS inventory (
 
     primary key(id),
     constraint inventory_rebel_soldier_fk
-        foreign key (rebel_id)
+        foreign key (rebel_soldier_id)
             references rebel (id)
 );
 
@@ -62,9 +71,12 @@ CREATE TABLE IF NOT EXISTS traitor_report(
     primary key(id),
     constraint traitor_report_rebel_soldier_fk
         foreign key (rebel_soldier_id)
-            references rebel(id)
+            references rebel(id),
 
     constraint traitor_report_rebel_soldier_traitor_fk
         foreign key (traitor_id)
             references rebel(id)
 );
+
+
+

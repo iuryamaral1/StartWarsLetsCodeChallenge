@@ -68,7 +68,7 @@ public class RebelSoldier {
     @Column(name = "service_end_at")
     private Date serviceEndAt;
 
-    @OneToOne(mappedBy = "rebelSoldier", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "rebelSoldier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Inventory inventory;
 
     @Embedded

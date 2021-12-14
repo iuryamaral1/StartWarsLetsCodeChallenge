@@ -4,6 +4,8 @@ import com.letscode.starwarsresistence.domain.RebelSoldier;
 import com.letscode.starwarsresistence.repositories.RebelSoldierRepository;
 import com.letscode.starwarsresistence.usecases.RebelSoldierGateway;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@Transactional(rollbackFor = Exception.class)
 public class RebelSoldierPostgresGateway implements RebelSoldierGateway {
 
     private RebelSoldierRepository repository;
@@ -25,6 +28,7 @@ public class RebelSoldierPostgresGateway implements RebelSoldierGateway {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true)
     public List<RebelSoldier> findAll() {
         List<RebelSoldier> rebelSoldiers = new ArrayList<>();
         repository.findAll().forEach(rebelSoldiers::add);

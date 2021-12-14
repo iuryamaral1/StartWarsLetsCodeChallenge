@@ -9,59 +9,61 @@ public class Location {
 
     @NotNull
     @Column(name = "latitude", nullable = false)
-    private Double lat;
+    private String lat;
 
     @NotNull
     @Column(name = "longitude", nullable = false)
-    private Double lng;
+    private String lng;
 
     public Location() { }
 
-    public Location(Double latitude, Double longitude) {
+    public Location(String latitude, String longitude) {
         this.lat = latitude;
         this.lng = longitude;
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 
     public static class LocationRequest {
 
-        private Double latitude;
+        private String latitude;
 
-        private Double longitude;
+        private String longitude;
 
-        public LocationRequest(Double lat, Double lng) {
+        public LocationRequest() { }
+
+        public LocationRequest(String lat, String lng) {
             this.latitude = lat;
             this.longitude = lng;
         }
 
-        public Double getLatitude() {
+        public String getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Double latitude) {
+        public void setLatitude(String latitude) {
             this.latitude = latitude;
         }
 
-        public Double getLongitude() {
+        public String getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Double longitude) {
+        public void setLongitude(String longitude) {
             this.longitude = longitude;
         }
     }

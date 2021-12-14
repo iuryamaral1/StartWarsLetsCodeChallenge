@@ -53,6 +53,8 @@ public class TraitorReport {
         private UUID reporterId;
         private UUID traitorId;
 
+        public TraitorReportRequest() { }
+
         public TraitorReportRequest(UUID reporterId, UUID traitorId) {
             this.reporterId = reporterId;
             this.traitorId = traitorId;

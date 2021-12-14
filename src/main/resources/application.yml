@@ -11,3 +11,10 @@ spring:
     hibernate:
       ddl-auto: create
       show-sql: true
+  flyway:
+    url: {STARWARS_APP_SPRING_DATASOURCE_URL}
+    username: {STARWARS_APP_SPRING_DATASOURCE_USER}
+    password: {STARWARS_APP_SPRING_DATASOURCE_PASSWORD}
+logging:
+  level:
+    root: debug

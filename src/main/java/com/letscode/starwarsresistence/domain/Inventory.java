@@ -32,7 +32,7 @@ public class Inventory {
     @Column(name = "is_negotiable", nullable = false, columnDefinition = "boolean default true")
     private boolean negotiable;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Item> items;
 
     public Inventory() {
@@ -102,16 +102,12 @@ public class Inventory {
 
     public static class NegotiationRequest {
 
-        @NotNull
         private UUID buyerId;
 
-        @NotNull
         private Set<Item> buyerItems;
 
-        @NotNull
         private UUID sellerId;
 
-        @NotNull
         private Set<Item> sellerItems;
 
         public UUID getBuyerId() {
