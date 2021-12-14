@@ -144,4 +144,6 @@ public class TraitorReport {
             this.message = message;
         }
     }
+
+
 }
